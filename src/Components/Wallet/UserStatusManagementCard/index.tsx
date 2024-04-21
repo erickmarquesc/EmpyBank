@@ -1,3 +1,4 @@
+import { useModal } from "@/Context"
 import {
   UserStatusManagementCardContent,
   UserStatusManagementCardHeader,
@@ -16,6 +17,14 @@ interface IUserStatusManagementCardProps {
 }
 
 export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
+  
+  const { modalSetIsOpen, userStatusManagementChange } = useModal()
+
+  const handleModalSetIsOpen = () => {
+    modalSetIsOpen()
+    userStatusManagementChange("customer")
+  }
+  
   return (
     <UserStatusManagementCardContent>
       <UserStatusManagementCardHeader type={type}>
@@ -25,7 +34,9 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
         </section>
 
         <div>
-          <button className="customer">
+          <button className="customer"
+            onClick={() => { handleModalSetIsOpen() }}
+          >
             <PiPlusCircle size={18} />
             Adicionar cliente
           </button>
