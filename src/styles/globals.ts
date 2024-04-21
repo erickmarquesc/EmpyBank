@@ -18,30 +18,30 @@ export const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme['gray']};
   }
   
-  body, input, textarea, button, strong  {
+  body, input, textarea, button, strong, select  {
     font-size: 1.6rem; //16px
   }
 
   /* Estilos para a barra de rolagem */
-/* Largura da barra de rolagem */
-::-webkit-scrollbar {
-  width: 10px; /* Você pode ajustar a largura conforme necessário */
-}
+  /* Largura da barra de rolagem */
+  ::-webkit-scrollbar {
+    width: 10px; /* Você pode ajustar a largura conforme necessário */
+  }
 
-/* Rastreamento da barra de rolagem */
-::-webkit-scrollbar-track {
-  background: ${(props) => props.theme['gray']}; /* Cor de fundo */
-}
+  /* Rastreamento da barra de rolagem */
+  ::-webkit-scrollbar-track {
+    background: ${(props) => props.theme['gray']}; /* Cor de fundo */
+  }
 
-/* Alça da barra de rolagem */
-::-webkit-scrollbar-thumb {
-  background: ${(props) => props.theme['base-blue']}; /* Cor da alça */
-}
+  /* Alça da barra de rolagem */
+  ::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme['base-blue']}; /* Cor da alça */
+  }
 
-/* Alça da barra de rolagem ao passar o mouse */
-::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-  filter: brightness(1.9);
-}
+  /* Alça da barra de rolagem ao passar o mouse */
+  ::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    filter: brightness(1.9);
+  }
 
 `

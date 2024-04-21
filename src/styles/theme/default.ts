@@ -12,10 +12,13 @@ export const defaultTheme = {
   'red-light': '#F75A68',
   'red-dark': '#7A1921',
 
-  /* COMPONENTS COLORS */
+  /* COMPONENTS COLORS  */
   'gray': '#EAEDEE',
-
+  'gray-light': '#E3E3E5',
+  'gray-dark': '#5D626D',
+  
   'blue': '#00BDFF',
+  'blue-dark': '#121929',
 
   'purple': '#5E17F5',
   

@@ -7,6 +7,8 @@ export const WalletHeaderContent = styled.div`
    
   h1{
     font-size: 2.8rem;
+    font-weight: 700;
+    color: ${(props) => props.theme['blue-dark']};
   };
 
   section{
@@ -26,7 +28,6 @@ export const WalletHeaderContent = styled.div`
       select{
         padding: 12px;
         min-width: 388px;
-        font-size: 1.6rem;
         border-radius: 12px;
       };
 
@@ -34,6 +35,7 @@ export const WalletHeaderContent = styled.div`
         border: none;
         display: flex;
         min-width: 54px;
+        padding: 16px 4px;
         border-radius: 22px;
         align-items: center;
         justify-content: center;

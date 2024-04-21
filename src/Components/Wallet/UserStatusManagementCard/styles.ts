@@ -83,14 +83,14 @@ export const UserStatusManagementCardTable = styled.table`
   };
 
   th {
-    color: rgba(18, 25, 41, 0.64);
+    color: ${(props) => props.theme['gray-dark']};
   };
 
   tbody {
     tr {
       td {
         background-color: ${(props) => props.theme['gray']};
-
+        color: ${(props) => props.theme['blue-dark']};
         &.first-child {
           width: 10%;
           border-radius: 18px 0 0 18px;
