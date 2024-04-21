@@ -1,8 +1,10 @@
-import { z } from "zod";
-import { ModalFooter, ModalForm } from "./styles"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useModal } from "@/Context";
+import { z } from "zod"
+
+import { useForm } from "react-hook-form"
+import { useModal } from "@/Context"
+
+import { ModalFooter, ModalForm } from "./styles"
 
 const confirmFormAssistantSchema = z.object({
   name: z.string().min(3, { message: 'O nome precisa ter no mínimo 3 caracteres' }),

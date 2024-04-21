@@ -1,7 +1,8 @@
-import { useModal } from "@/Context";
-import { ModalContainer, ModalContent } from "./styles";
-import ModalBodyCustomer from "./modalBodyCustomer";
-import ModalBodyAssistant from "./modalBodyAssistant";
+import ModalBodyAssistant from "./modalBodyAssistant"
+import ModalBodyCustomer from "./modalBodyCustomer"
+import { useModal } from "@/Context"
+
+import { ModalContainer, ModalContent } from "./styles"
 
 export default function Modal() {
   const { isOpen, modalSetIsOpen, userStatus } = useModal()

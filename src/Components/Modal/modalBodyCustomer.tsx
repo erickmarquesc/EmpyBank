@@ -1,8 +1,10 @@
-import { z } from "zod"
-import { ModalFooter, ModalForm } from "./styles"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+
+import { useForm } from "react-hook-form"
 import { useModal } from "@/Context"
+
+import { ModalFooter, ModalForm } from "./styles"
 
 const confirmFormCustomerSchema = z.object({
   code: z.string().regex(/^(X|x){2}\d{2}-\d$/, { message: 'O código precisa começar com "XX" , seguido por dois números, um hífen e um digito número' }),

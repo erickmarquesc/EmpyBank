@@ -41,8 +41,8 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             Adicionar cliente
           </button>
           <button className="customer vincular">
-            <PiArrowCircleRight size={18} />
             Vincular
+            <PiArrowCircleRight size={18} />
           </button>
           <button className="assistant">
             <PiArrowCircleLeft size={18} />

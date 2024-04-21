@@ -23,7 +23,7 @@ export default function Sidebar() {
           src={logoImg}
         />
         <menu>
-          <Link href='/'
+          <Link href='/inProgress'
             aria-selected
           >
             <PiChartPie
@@ -37,25 +37,25 @@ export default function Sidebar() {
               className='icon'
             />
           </Link>
-          <Link href='/'>
+          <Link href='/inProgress'>
             <PiToolbox
               size={21}
               className='icon'
             />
           </Link>
-          <Link href='/'>
+          <Link href='/inProgress'>
             <PiStorefront
               size={21}
               className='icon'
             />
           </Link>
-          <Link href='/'>
+          <Link href='/inProgress'>
             <PiClipboardText
               size={21}
               className='icon'
             />
           </Link>
-          <Link href='/'>
+          <Link href='/inProgress'>
             <PiMoneyLight
               size={21}
               className='icon'
