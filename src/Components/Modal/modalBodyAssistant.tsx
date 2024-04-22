@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form"
 import { useModal } from "@/Context"
 
 import { ModalFooter, ModalForm } from "./styles"
+import { api } from "@/lib/axios"
+import { AxiosError } from "axios"
 
 const confirmFormAssistantSchema = z.object({
   name: z.string().min(3, { message: 'O nome precisa ter no mínimo 3 caracteres' }),
@@ -22,8 +24,18 @@ export default function ModalBodyAssistant() {
     resolver: zodResolver(confirmFormAssistantSchema)
   })
 
-  const handleConfirmAssistant = (data: ConfirmFormAssistantData) => {
-    console.log(data)
+  async function handleConfirmAssistant(data: ConfirmFormAssistantData) {
+    try {
+      await api.post('/assistants', {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      })
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message);
+      };
+    }
   }
 
   const handleModalSetIsOpen = () => {
@@ -67,6 +79,7 @@ export default function ModalBodyAssistant() {
       </div>
       <ModalFooter>
         <button
+          type="button"
           onClick={() => { handleModalSetIsOpen() }}
         >
           Cancelar

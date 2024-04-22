@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form"
 import { useModal } from "@/Context"
 
 import { ModalFooter, ModalForm } from "./styles"
+import { api } from "@/lib/axios"
+import { AxiosError } from "axios"
 
 const confirmFormCustomerSchema = z.object({
   code: z.string().regex(/^(X|x){2}\d{2}-\d$/, { message: 'O código precisa começar com "XX" , seguido por dois números, um hífen e um digito número' }),
@@ -22,8 +24,18 @@ export default function ModalBodyCustomer() {
     resolver: zodResolver(confirmFormCustomerSchema)
   })
 
-  const handleConfirmCustomer = (data: ConfirmFormCustomerData) => {
-    console.log(data)
+  async function handleConfirmCustomer(data: ConfirmFormCustomerData){ //registro do customer
+    try {
+      await api.post('/customers', {
+        name: data.name,
+        code: data.code,
+        network: data.network,
+      })
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message);
+      };
+    }
   }
 
   const handleModalSetIsOpen = () => {
@@ -69,6 +81,7 @@ export default function ModalBodyCustomer() {
 
       <ModalFooter>
         <button
+          type="button"
           onClick={() => { handleModalSetIsOpen() }}
         >
           Cancelar
