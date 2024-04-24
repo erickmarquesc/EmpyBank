@@ -7,10 +7,12 @@ import { useModal } from "@/Context/ModalContext"
 import { ModalFooter, ModalForm } from "./styles"
 import { api } from "@/lib/axios"
 import { AxiosError } from "axios"
+import { useCustomer } from "@/Context/CustomerContext"
 
 export default function ModalBodyCustomer() {
 
   const { modalSetIsOpen } = useModal()
+  const { createCustomer } = useCustomer()
 
   const {
     register,
@@ -20,18 +22,8 @@ export default function ModalBodyCustomer() {
     resolver: zodResolver(confirmFormCustomerSchema)
   })
 
-  async function handleConfirmCustomer(data: ConfirmFormCustomerData) { //registro do customer
-    try {
-      await api.post('/customers', {
-        name: data.name,
-        code: data.code,
-        network: data.network,
-      })
-    } catch (err) {
-      if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message);
-      };
-    }
+  function handleConfirmCustomer(data: ConfirmFormCustomerData) {
+    createCustomer(data)
   }
 
   const handleModalSetIsOpen = () => {

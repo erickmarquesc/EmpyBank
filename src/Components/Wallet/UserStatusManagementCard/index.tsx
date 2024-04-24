@@ -1,19 +1,23 @@
+import { useEffect, useState } from "react"
+
+import { useAssistant } from "@/Context/AssistantContext"
 import { useModal } from "@/Context/ModalContext"
-import {
-  UserStatusManagementCardContent,
-  UserStatusManagementCardHeader,
-  UserStatusManagementCardTable
-} from "./styles"
+
+import { AxiosError } from "axios"
+import { api } from "@/lib/axios"
 
 import {
   PiArrowCircleRight,
   PiArrowCircleLeft,
   PiPlusCircle,
 } from "react-icons/pi"
-import { useAssistant } from "@/Context/AssistantContext"
-import { api } from "@/lib/axios"
-import { useEffect, useState } from "react"
-import { AxiosError } from "axios"
+
+import {
+  UserStatusManagementCardContent,
+  UserStatusManagementCardHeader,
+  UserStatusManagementCardTable
+} from "./styles"
+import { useCustomer } from "@/Context/CustomerContext"
 
 interface IUserStatusManagementCardProps {
   title: string,
@@ -27,77 +31,40 @@ interface IAssistantsOptionsProp {
   network: string,
 }
 
+/* 
+ * UserStatusManagementCard é um componente comum aos tipos de usuários que pode ser:
+ * type: 'customer' | 'assistant',
+ * dependendo do type o card se comportará de uma maneira.
+ */
 export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
 
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
-  const { assistantNameSelected, assistantsWithRelation, assistantIdSelected } = useAssistant()
+  
+  const {
+    assistantNameSelected,
+    assistantsWithRelation,
+    assistantIdSelected } = useAssistant()
+  
+  const {
+    desvincular,
+    vincular,
+    CustomersIdCheckBoxChange,
+    customersOptionsList } = useCustomer()
 
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
-    userStatusManagementChange("customer")
+    userStatusManagementChange("customer") //Abre o corpo de cliente do modal
   }
 
-  const [customersOptionsList, setcustomersOptionsList] = useState<IAssistantsOptionsProp[]>([]) // customers sem relação
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/customers/list');
-        setcustomersOptionsList(response.data);
-      } catch (error) {
-        console.error('Erro ao obter a lista de assistentes:', error);
-      }
-    };
-
-    fetchData();
-  }, [])
-
-  const [selectedCustomers, setSelectedCustomers] = useState<string[]>([]);
-
-  const handleCheckBoxChange = (customerId: string) => {
-    // Verifica se o cliente já está na lista de selecionados
-    const isChecked = selectedCustomers.includes(customerId);
-
-    if (isChecked) {
-      // Se já estiver selecionado, remove da lista
-      setSelectedCustomers(selectedCustomers.filter(id => id !== customerId));
-    } else {
-      // Se não estiver selecionado, adiciona à lista
-      setSelectedCustomers([...selectedCustomers, customerId]);
-    }
-  };
-
-  async function vincular() {
-    for (const customerId of selectedCustomers) {
-      try {
-        await api.post('/customerAssistantRelation', {
-          assistantId: assistantIdSelected,
-          customerId: customerId,
-        })
-      } catch (err) {
-        if (err instanceof AxiosError && err?.response?.data?.message) {
-          alert(err.response.data.message);
-        };
-      }
-    }
+  function handleVincular() {
+    vincular(assistantIdSelected)
   }
 
-  async function desvincular() {
-    for (const customerId of selectedCustomers) {
-      console.log('desvincular')
-      try {
-        await api.put('/customerAssistantRelation/deletar', {
-          assistantId: assistantIdSelected,
-          customerId: customerId,
-        })
-      } catch (err) {
-        if (err instanceof AxiosError && err?.response?.data?.message) {
-          alert(err.response.data.message);
-        };
-      }
-    }
+  function handleDesvincular() {
+    desvincular(assistantIdSelected)
   }
 
+  //precisa ser atualizado com as modificações
   const customersList = type == "customer" ? customersOptionsList : assistantsWithRelation
 
   return (
@@ -122,13 +89,13 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             Adicionar cliente
           </button>
           <button className="customer vincular"
-            onClick={() => { vincular() }}
+            onClick={() => { handleVincular() }}
           >
             Vincular
             <PiArrowCircleRight size={18} />
           </button>
           <button className="assistant"
-            onClick={() => { desvincular() }}
+            onClick={() => { handleDesvincular() }}
           >
             <PiArrowCircleLeft size={18} />
             Desvincular
@@ -155,7 +122,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
                   <input
                     type="checkbox"
                     value={customer.id}
-                    onChange={() => handleCheckBoxChange(customer.id)}
+                    onChange={() => CustomersIdCheckBoxChange(customer.id)}
                   />
                 </td>
                 <td className="code-child">
