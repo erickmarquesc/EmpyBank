@@ -22,6 +22,12 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem; //16px
   }
 
+  button, select{
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
   /* Estilos para a barra de rolagem */
   /* Largura da barra de rolagem */
   ::-webkit-scrollbar {
