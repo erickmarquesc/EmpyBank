@@ -50,6 +50,11 @@ export const ModalFooter = styled.footer`
       color: ${(props) => props.theme['gray-dark']};
       background-color: ${(props) => props.theme['gray']};
     }
+
+    &:hover{
+      cursor: pointer;
+      filter: brightness(0.8);
+    }
   };
 `
 
