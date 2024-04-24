@@ -13,6 +13,7 @@ import {
 import { useAssistant } from "@/Context/AssistantContext"
 import { api } from "@/lib/axios"
 import { useEffect, useState } from "react"
+import { AxiosError } from "axios"
 
 interface IUserStatusManagementCardProps {
   title: string,
@@ -29,8 +30,8 @@ interface IAssistantsOptionsProp {
 export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
 
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
-  const { assistantNameSelected, assistantsWithoutRelation } = useAssistant()
-  
+  const { assistantNameSelected, assistantsWithoutRelation, assistantIdSelected } = useAssistant()
+
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
     userStatusManagementChange("customer")
@@ -50,6 +51,52 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
 
     fetchData();
   }, [])
+
+  const [selectedCustomers, setSelectedCustomers] = useState<string[]>([]);
+
+  const handleCheckBoxChange = (customerId: string) => {
+    // Verifica se o cliente já está na lista de selecionados
+    const isChecked = selectedCustomers.includes(customerId);
+
+    if (isChecked) {
+      // Se já estiver selecionado, remove da lista
+      setSelectedCustomers(selectedCustomers.filter(id => id !== customerId));
+    } else {
+      // Se não estiver selecionado, adiciona à lista
+      setSelectedCustomers([...selectedCustomers, customerId]);
+    }
+  };
+
+  async function vincular() {
+    for (const customerId of selectedCustomers) {
+      try {
+        await api.post('/customerAssistantRelation', {
+          assistantId: assistantIdSelected,
+          customerId: customerId,
+        })
+      } catch (err) {
+        if (err instanceof AxiosError && err?.response?.data?.message) {
+          alert(err.response.data.message);
+        };
+      }
+    }
+  }
+
+  async function desvincular() {
+    for (const customerId of selectedCustomers) {
+      console.log('desvincular')
+      try {
+        await api.put('/customerAssistantRelation/deletar', {
+          assistantId: assistantIdSelected,
+          customerId: customerId,
+        })
+      } catch (err) {
+        if (err instanceof AxiosError && err?.response?.data?.message) {
+          alert(err.response.data.message);
+        };
+      }
+    }
+  }
 
   return (
     <UserStatusManagementCardContent>
@@ -72,11 +119,15 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             <PiPlusCircle size={18} />
             Adicionar cliente
           </button>
-          <button className="customer vincular">
+          <button className="customer vincular"
+            onClick={() => { vincular() }}
+          >
             Vincular
             <PiArrowCircleRight size={18} />
           </button>
-          <button className="assistant">
+          <button className="assistant"
+            onClick={() => { desvincular() }}
+          >
             <PiArrowCircleLeft size={18} />
             Desvincular
           </button>
@@ -102,7 +153,11 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
                 return (
                   <tr key={customer.id}>
                     <td className="first-child">
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        value={customer.id}
+                        onChange={() => handleCheckBoxChange(customer.id)}
+                      />
                     </td>
                     <td className="code-child">
                       {customer.code}
@@ -123,7 +178,11 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
                 return (
                   <tr key={customer.id}>
                     <td className="first-child">
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        value={customer.id}
+                        onChange={() => handleCheckBoxChange(customer.id)}
+                      />
                     </td>
                     <td className="code-child">
                       {customer.code}
