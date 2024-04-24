@@ -1,41 +1,26 @@
+import { ConfirmFormAssistantData, confirmFormAssistantSchema } from "./modalSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-
 import { useForm } from "react-hook-form"
-import { useModal } from "@/Context"
+
+import { useAssistant } from "@/Context/AssistantContext"
+import { useModal } from "@/Context/ModalContext"
 
 import { ModalFooter, ModalForm } from "./styles"
-import { api } from "@/lib/axios"
-import { AxiosError } from "axios"
-
-const confirmFormAssistantSchema = z.object({
-  name: z.string().min(3, { message: 'O nome precisa ter no mínimo 3 caracteres' }),
-  email: z.string().email({ message: 'Digite um e-mail válido' }),
-  phone: z.string().min(8, { message: 'Número de telefone celular (nove digitos) ou fixo (oito digitos)' }),
-})
-
-type ConfirmFormAssistantData = z.infer<typeof confirmFormAssistantSchema>
 
 export default function ModalBodyAssistant() {
   const { modalSetIsOpen } = useModal()
+  const { creatAssistant } = useAssistant()
 
-
-  const { register, handleSubmit, formState: { isSubmitting, errors } } = useForm<ConfirmFormAssistantData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid }
+  } = useForm<ConfirmFormAssistantData>({
     resolver: zodResolver(confirmFormAssistantSchema)
   })
 
-  async function handleConfirmAssistant(data: ConfirmFormAssistantData) {
-    try {
-      await api.post('/assistants', {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-      })
-    } catch (err) {
-      if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message);
-      };
-    }
+  async function handleCreateAssistant(data: ConfirmFormAssistantData) {
+    creatAssistant(data)
   }
 
   const handleModalSetIsOpen = () => {
@@ -43,7 +28,7 @@ export default function ModalBodyAssistant() {
   }
 
   return (
-    <ModalForm as='Form' onSubmit={handleSubmit(handleConfirmAssistant)}>
+    <ModalForm as='Form' onSubmit={handleSubmit(handleCreateAssistant)}>
       <h1>Cadastro de Assistente Comercial</h1>
 
       <div>
@@ -77,6 +62,7 @@ export default function ModalBodyAssistant() {
           />
         </section>
       </div>
+
       <ModalFooter>
         <button
           type="button"
@@ -86,11 +72,12 @@ export default function ModalBodyAssistant() {
         </button>
         <button
           type="submit"
+          disabled={!isValid}
+          onClick={() => { handleModalSetIsOpen() }}
         >
           Salvar
         </button>
       </ModalFooter>
-
     </ModalForm>
   )
 }

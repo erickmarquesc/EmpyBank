@@ -1,30 +1,26 @@
+import { ConfirmFormCustomerData, confirmFormCustomerSchema } from "./modalSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-
 import { useForm } from "react-hook-form"
-import { useModal } from "@/Context"
+
+import { useModal } from "@/Context/ModalContext"
 
 import { ModalFooter, ModalForm } from "./styles"
 import { api } from "@/lib/axios"
 import { AxiosError } from "axios"
 
-const confirmFormCustomerSchema = z.object({
-  code: z.string().regex(/^(X|x){2}\d{2}-\d$/, { message: 'O código precisa começar com "XX" , seguido por dois números, um hífen e um digito número' }),
-  name: z.string().min(3, { message: 'O nome precisa ter no mínimo 3 caracteres' }),
-  network: z.string().min(5, { message: 'A Rede precisa ter o padrão: ex Rede A ou Rede B' }),
-})
-
-type ConfirmFormCustomerData = z.infer<typeof confirmFormCustomerSchema>
-
 export default function ModalBodyCustomer() {
 
   const { modalSetIsOpen } = useModal()
 
-  const { register, handleSubmit, formState: { isSubmitting, errors } } = useForm<ConfirmFormCustomerData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid, errors }
+  } = useForm<ConfirmFormCustomerData>({
     resolver: zodResolver(confirmFormCustomerSchema)
   })
 
-  async function handleConfirmCustomer(data: ConfirmFormCustomerData){ //registro do customer
+  async function handleConfirmCustomer(data: ConfirmFormCustomerData) { //registro do customer
     try {
       await api.post('/customers', {
         name: data.name,
@@ -88,6 +84,8 @@ export default function ModalBodyCustomer() {
         </button>
         <button
           type="submit"
+          disabled={!isValid}
+          onClick={() => { handleModalSetIsOpen() }}
         >
           Salvar
         </button>
