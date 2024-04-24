@@ -1,4 +1,4 @@
-import { useModal } from "@/Context"
+import { useModal } from "@/Context/ModalContext"
 import {
   UserStatusManagementCardContent,
   UserStatusManagementCardHeader,
@@ -30,7 +30,7 @@ interface IAssistantsOptionsProp {
 export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
 
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
-  const { assistantNameSelected, assistantsWithoutRelation, assistantIdSelected } = useAssistant()
+  const { assistantNameSelected, assistantsWithRelation, assistantIdSelected } = useAssistant()
 
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
@@ -98,6 +98,8 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
     }
   }
 
+  const customersList = type == "customer" ? customersOptionsList : assistantsWithRelation
+
   return (
     <UserStatusManagementCardContent>
       <UserStatusManagementCardHeader type={type}>
@@ -109,7 +111,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             {assistantNameSelected}
           </h2>
           <label className="customer">{customersOptionsList.length}</label>
-          <label className="assistant">{assistantsWithoutRelation.length}</label>
+          <label className="assistant">{assistantsWithRelation.length}</label>
         </section>
 
         <div>
@@ -145,59 +147,30 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             <th>Rede</th>
           </tr>
         </thead>
-
-        {
-          type == "customer" ?
-            <tbody>
-              {customersOptionsList.map((customer) => {
-                return (
-                  <tr key={customer.id}>
-                    <td className="first-child">
-                      <input
-                        type="checkbox"
-                        value={customer.id}
-                        onChange={() => handleCheckBoxChange(customer.id)}
-                      />
-                    </td>
-                    <td className="code-child">
-                      {customer.code}
-                    </td>
-                    <td>
-                      {customer.name}
-                    </td>
-                    <td className="last-child">
-                      {customer.network}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-            :
-            <tbody>
-              {assistantsWithoutRelation.map((customer) => {
-                return (
-                  <tr key={customer.id}>
-                    <td className="first-child">
-                      <input
-                        type="checkbox"
-                        value={customer.id}
-                        onChange={() => handleCheckBoxChange(customer.id)}
-                      />
-                    </td>
-                    <td className="code-child">
-                      {customer.code}
-                    </td>
-                    <td>
-                      {customer.name}
-                    </td>
-                    <td className="last-child">
-                      {customer.network}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-        }
+        <tbody>
+          {customersList.map((customer) => {
+            return (
+              <tr key={customer.id}>
+                <td className="first-child">
+                  <input
+                    type="checkbox"
+                    value={customer.id}
+                    onChange={() => handleCheckBoxChange(customer.id)}
+                  />
+                </td>
+                <td className="code-child">
+                  {customer.code}
+                </td>
+                <td>
+                  {customer.name}
+                </td>
+                <td className="last-child">
+                  {customer.network}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
       </UserStatusManagementCardTable>
     </UserStatusManagementCardContent>
   )

@@ -1,14 +1,7 @@
-import { useModal } from "@/Context"
+import { useModal } from "@/Context/ModalContext"
 import { WalletHeaderContent } from "./styles"
 import { PiPlusCircle } from "react-icons/pi"
-import { api } from "@/lib/axios"
-import { useEffect, useState } from "react"
 import { useAssistant } from "@/Context/AssistantContext"
-
-interface IAssistantsOptionsProp {
-  name: string,
-  id: string
-}
 
 export default function WalletHeader() {
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
@@ -34,7 +27,10 @@ export default function WalletHeader() {
           <select onChange={(e) => handleoptions(e.target.value)}>
             <option value="" disabled selected>Selecione uma opção</option>
             {assistantOptionsList.map((option) => (
-              <option value={option.id} key={option.id}>
+              <option
+                value={option.id}
+                key={option.id}
+              >
                 {option.name}
               </option>
             ))}
