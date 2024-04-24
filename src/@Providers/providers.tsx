@@ -9,6 +9,7 @@ import { defaultTheme } from "@/styles/theme/default";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
+import { CustomerContextProvider } from "@/Context/CustomerContext";
 
 interface IProvidersProps {
   children: ReactNode,
@@ -20,12 +21,14 @@ export default function EmpyBankProviders({ children }: IProvidersProps) {
       <ModalContextProvider>
         <QueryClientProvider client={queryClient}>
           <AssistantContextProvider>
-            <GlobalStyle />
-            <Modal />
-            <ContainerGrid>
-              <Sidebar />
-              {children}
-            </ContainerGrid>
+            <CustomerContextProvider>
+              <GlobalStyle />
+              <Modal />
+              <ContainerGrid>
+                <Sidebar />
+                {children}
+              </ContainerGrid>
+            </CustomerContextProvider>
           </AssistantContextProvider>
         </QueryClientProvider>
       </ModalContextProvider>
