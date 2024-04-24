@@ -109,7 +109,7 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
     };
 
     fetchData();
-  }, [assistantIdSelected])
+  }, [assistantIdSelected, refresh])
 
   return (
     <>
