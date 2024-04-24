@@ -10,27 +10,59 @@ import {
   PiArrowCircleLeft,
   PiPlusCircle,
 } from "react-icons/pi"
+import { useAssistant } from "@/Context/AssistantContext"
+import { api } from "@/lib/axios"
+import { useEffect, useState } from "react"
 
 interface IUserStatusManagementCardProps {
   title: string,
   type: 'customer' | 'assistant',
 }
 
-export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
-  
-  const { modalSetIsOpen, userStatusManagementChange } = useModal()
+interface IAssistantsOptionsProp {
+  id: string,
+  code: string,
+  name: string,
+  network: string,
+}
 
+export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
+
+  const { modalSetIsOpen, userStatusManagementChange } = useModal()
+  const { assistantNameSelected, assistantsWithoutRelation } = useAssistant()
+  
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
     userStatusManagementChange("customer")
   }
-  
+
+  const [customersOptionsList, setcustomersOptionsList] = useState<IAssistantsOptionsProp[]>([]) // customers sem relação
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/customers/list');
+        setcustomersOptionsList(response.data);
+      } catch (error) {
+        console.error('Erro ao obter a lista de assistentes:', error);
+      }
+    };
+
+    fetchData();
+  }, [])
+
   return (
     <UserStatusManagementCardContent>
       <UserStatusManagementCardHeader type={type}>
         <section>
-          <h1>{title}</h1>
-          <label>23</label>
+          <h1>
+            {title}
+          </h1>
+          <h2>
+            {assistantNameSelected}
+          </h2>
+          <label className="customer">{customersOptionsList.length}</label>
+          <label className="assistant">{assistantsWithoutRelation.length}</label>
         </section>
 
         <div>
@@ -62,26 +94,51 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             <th>Rede</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td className="first-child"><input type="checkbox" /></td>
-            <td className="code-child">XX30-2</td>
-            <td>Parceiro 1</td>
-            <td className="last-child">Rede A</td>
-          </tr>
-          <tr>
-            <td className="first-child"><input type="checkbox" /></td>
-            <td className="code-child">XX30-2</td>
-            <td>Parceiro 1</td>
-            <td className="last-child">Rede A</td>
-          </tr>
-          <tr>
-            <td className="first-child"><input type="checkbox" /></td>
-            <td className="code-child">XX30-2</td>
-            <td>Parceiro 1</td>
-            <td className="last-child">Rede A</td>
-          </tr>
-        </tbody>
+
+        {
+          type == "customer" ?
+            <tbody>
+              {customersOptionsList.map((customer) => {
+                return (
+                  <tr key={customer.id}>
+                    <td className="first-child">
+                      <input type="checkbox" />
+                    </td>
+                    <td className="code-child">
+                      {customer.code}
+                    </td>
+                    <td>
+                      {customer.name}
+                    </td>
+                    <td className="last-child">
+                      {customer.network}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+            :
+            <tbody>
+              {assistantsWithoutRelation.map((customer) => {
+                return (
+                  <tr key={customer.id}>
+                    <td className="first-child">
+                      <input type="checkbox" />
+                    </td>
+                    <td className="code-child">
+                      {customer.code}
+                    </td>
+                    <td>
+                      {customer.name}
+                    </td>
+                    <td className="last-child">
+                      {customer.network}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+        }
       </UserStatusManagementCardTable>
     </UserStatusManagementCardContent>
   )

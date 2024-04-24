@@ -28,8 +28,26 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
     align-items: center;
     flex-direction: row;
 
-    h1{
+    h1, h2{
       font-size: 1.6rem;
+    };
+
+    ${(props) => props.type === 'customer' && (
+     css`
+      & h2, .assistant{
+        display: none;
+      };
+    `)};
+
+    ${(props) => props.type === 'customer'
+    ? css`
+        & h2, .assistant{
+        display: none;
+      };`
+    : css`
+        & .customer{
+        display: none;
+      };`
     };
 
     label{
