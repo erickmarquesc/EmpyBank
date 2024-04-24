@@ -1,7 +1,7 @@
 import { ContainerGrid } from "@/Components/ContainersAndContent/styles";
 import Modal from "@/Components/Modal";
 import Sidebar from "@/Components/Sidebar";
-import { ModalContextProvider } from "@/Context";
+import { ModalContextProvider } from "@/Context/ModalContext";
 import { AssistantContextProvider } from "@/Context/AssistantContext";
 import { queryClient } from "@/lib/react-query";
 import { GlobalStyle } from "@/styles/globals";
@@ -18,16 +18,16 @@ export default function EmpyBankProviders({ children }: IProvidersProps) {
   return (
     <ThemeProvider theme={defaultTheme}>
       <ModalContextProvider>
-        <GlobalStyle />
-        <Modal />
-        <ContainerGrid>
-          <Sidebar />
-          <QueryClientProvider client={queryClient}>
-            <AssistantContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <AssistantContextProvider>
+            <GlobalStyle />
+            <Modal />
+            <ContainerGrid>
+              <Sidebar />
               {children}
-            </AssistantContextProvider>
-          </QueryClientProvider>
-        </ContainerGrid>
+            </ContainerGrid>
+          </AssistantContextProvider>
+        </QueryClientProvider>
       </ModalContextProvider>
     </ThemeProvider>
   )
