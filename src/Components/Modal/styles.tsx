@@ -55,6 +55,11 @@ export const ModalFooter = styled.footer`
       cursor: pointer;
       filter: brightness(0.8);
     }
+    &:disabled{
+      cursor: not-allowed;
+      filter: brightness(0.8);
+    }
+
   };
 `
 
