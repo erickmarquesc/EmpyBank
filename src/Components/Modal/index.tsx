@@ -1,6 +1,6 @@
 import ModalBodyAssistant from "./modalBodyAssistant"
 import ModalBodyCustomer from "./modalBodyCustomer"
-import { useModal } from "@/Context"
+import { useModal } from "@/Context/ModalContext"
 
 import { ModalContainer, ModalContent } from "./styles"
 
@@ -14,7 +14,7 @@ export default function Modal() {
   return (
     <ModalContainer
       isOpen={isOpen}
-      /* onClick={() => handleModalSetIsOpen()} */
+    /* onClick={() => handleModalSetIsOpen()} */
     >
       <ModalContent>
         {userStatus == 'customer'
