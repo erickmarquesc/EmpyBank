@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios'
+import { AxiosError } from 'axios'
 import {
   ReactNode,
   createContext,
@@ -8,6 +9,11 @@ import {
   useState
 } from 'react'
 
+interface IAssistantProps {
+  name: string,
+  email: string,
+  phone: string,
+}
 interface IAssistantsOptionsProp {
   name: string,
   id: string
@@ -24,8 +30,9 @@ interface IAssistantContextProps {
   assistantOptionsList: IAssistantsOptionsProp[],
   assistantIdSelected: string,
   assistantNameSelected: string,
-  assistantsWithoutRelation: IAssistantsOptionsssProp[],
+  assistantsWithRelation: IAssistantsOptionsssProp[],
   getAssistantIdForOptionsList: (id: string) => void,
+  creatAssistant: ({ email, name, phone }: IAssistantProps) => void,
 }
 
 interface IAssistantContextProviderProps {
@@ -37,14 +44,33 @@ export const AssistantContext = createContext<IAssistantContextProps>({} as IAss
 export function AssistantContextProvider({ children }: IAssistantContextProviderProps) {
 
   const [assistantOptionsList, setAssistantOptionsList] = useState<IAssistantsOptionsProp[]>([]) // lista de assistent
-  const [assistantsWithoutRelation, setassistantsWithoutRelation] = useState<IAssistantsOptionsssProp[]>([]) // lista de assistent
 
   const [assistantIdSelected, setAssistantIdSelected] = useState<string>('')
 
   const [assistantNameSelected, setAssistantNameSelected] = useState('')
-  
+
+
+  const [assistantsWithRelation, setassistantsWithRelation] = useState<IAssistantsOptionsssProp[]>([]) // lista de costumers relacionada com o assistent
+
+  const [refresh, setRefresh] = useState(false)
+
   function getAssistantIdForOptionsList(id: string) {
     setAssistantIdSelected(id)
+  }
+
+  async function creatAssistant({ email, name, phone }: IAssistantProps) {
+    try {
+      await api.post('/assistants', {
+        name,
+        email,
+        phone,
+      })
+      setRefresh(!refresh)
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message);
+      };
+    }
   }
 
   useEffect(() => {
@@ -58,7 +84,7 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
     };
 
     fetchData();
-  }, [assistantIdSelected])
+  }, [assistantIdSelected, refresh])
 
   useEffect(() => {
     assistantOptionsList.map((assistant) => {
@@ -71,14 +97,14 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get('/assistants/assistantsWithoutRelation', {
+        const response = await api.get('/assistants/assistantsWithRelation', {
           params: {
-            assistantIdSelected: assistantIdSelected
+            assistantIdSelected
           }
         });
-        setassistantsWithoutRelation(response.data);
+        setassistantsWithRelation(response.data);
       } catch (error) {
-        console.error('Erro ao obter a lista de assistentes:', error);
+        console.error('Erro ao obter a lista de relações:', error);
       }
     };
 
@@ -89,7 +115,8 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
     <>
       <AssistantContext.Provider
         value={{
-          assistantsWithoutRelation,
+          creatAssistant,
+          assistantsWithRelation,
           assistantOptionsList,
           assistantIdSelected,
           assistantNameSelected,
