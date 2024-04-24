@@ -13,7 +13,7 @@ export default function Home() {
           title="Cliente (Não vinculado)"
           type="customer" />
         <UserStatusManagementCard
-          title="Carteira do Fulano"
+          title="Carteira de:"
           type="assistant" />
       </HomeContentUserStatusManagementCard>
 
