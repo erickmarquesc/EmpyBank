@@ -1,12 +1,12 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const HomeContent = styled.div`
   gap: 24px;
-  padding: 8px 32px;
   display: flex;
-  flex-direction: column;
-  margin-left: auto;
   margin-right: 0;
+  padding: 8px 32px;
+  margin-left: auto;
+  flex-direction: column;
 `
 export const HomeContentUserStatusManagementCard = styled.div`
   gap: 12px;
@@ -15,5 +15,4 @@ export const HomeContentUserStatusManagementCard = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-
 `
