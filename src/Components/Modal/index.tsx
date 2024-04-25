@@ -1,16 +1,16 @@
-import ModalBodyAssistant from "./modalBodyAssistant"
-import ModalBodyCustomer from "./modalBodyCustomer"
-import { useModal } from "@/Context/ModalContext"
+import ModalBodyAssistant from './modalBodyAssistant'
+import ModalBodyCustomer from './modalBodyCustomer'
+import { useModal } from '@/Context/ModalContext'
 
-import { ModalContainer, ModalContent } from "./styles"
-import { StyleSheetManager } from "styled-components"
+import { ModalContainer, ModalContent } from './styles'
+import { StyleSheetManager } from 'styled-components'
 
 export default function Modal() {
-  const { isOpen, modalSetIsOpen, userStatus } = useModal()
+  const { isOpen, userStatus } = useModal()
 
-  const handleModalSetIsOpen = () => {
+  /* const handleModalSetIsOpen = () => {
     modalSetIsOpen()
-  }
+  } */
 
   return (
     <StyleSheetManager shouldForwardProp={(prop) => prop !== 'isOpen'}>

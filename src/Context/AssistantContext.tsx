@@ -77,21 +77,21 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
       setRefresh(!refresh)
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message);
-      };
+        alert(err.response.data.message)
+      }
     }
   }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get('/assistants/list');
-        setAssistantOptionsList(response.data);
+        const response = await api.get('/assistants/list')
+        setAssistantOptionsList(response.data)
       } catch (error) {
-        console.error('Erro ao obter a lista de assistentes:', error);
+        console.error('Erro ao obter a lista de assistentes:', error)
       }
-    };
-    fetchData();
+    }
+    fetchData()
   }, [assistantIdSelected, refresh])
 
   useEffect(() => {
@@ -109,13 +109,13 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
           params: {
             assistantIdSelected
           }
-        });
-        setassistantsWithRelation(response.data);
+        })
+        setassistantsWithRelation(response.data)
       } catch (error) {
-        console.error('Erro ao obter a lista de relações:', error);
+        console.error('Erro ao obter a lista de relações:', error)
       }
-    };
-    fetchData();
+    }
+    fetchData()
   }, [assistantIdSelected, refresh])
 
   return (

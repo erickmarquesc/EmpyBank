@@ -13,8 +13,9 @@ import {
   PiMoneyLight,
   PiUserCircle,
   PiSun
-} from "react-icons/pi";
-import { SidebarContainer, SidebarContentUserSection } from './styles';
+} from 'react-icons/pi'
+
+import { SidebarContainer, SidebarContentUserSection } from './styles'
 
 export default function Sidebar() {
   return (
@@ -72,7 +73,6 @@ export default function Sidebar() {
           src={userImg}
         />
       </SidebarContentUserSection>
-
     </SidebarContainer>
   )
 }

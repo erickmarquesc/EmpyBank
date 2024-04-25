@@ -1,7 +1,9 @@
-import { useModal } from "@/Context/ModalContext"
-import { WalletHeaderContent } from "./styles"
-import { PiPlusCircle } from "react-icons/pi"
-import { useAssistant } from "@/Context/AssistantContext"
+import { PiPlusCircle } from 'react-icons/pi'
+
+import { useAssistant } from '@/Context/AssistantContext'
+import { useModal } from '@/Context/ModalContext'
+
+import { WalletHeaderContent } from './styles'
 
 export default function WalletHeader() {
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
@@ -9,7 +11,7 @@ export default function WalletHeader() {
 
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
-    userStatusManagementChange("assistant")
+    userStatusManagementChange('assistant')
   }
 
   const handleoptions = (id: string) => {

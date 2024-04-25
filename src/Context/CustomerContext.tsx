@@ -1,14 +1,13 @@
 import { api } from '@/lib/axios'
 import { AxiosError } from 'axios'
 import {
+  useState,
   ReactNode,
-  createContext,
-  useContext,
   useEffect,
-  useReducer,
-  useState
+  useContext,
+  createContext,
 } from 'react'
-import { useAssistant } from './AssistantContext';
+import { useAssistant } from './AssistantContext'
 
 interface ICustomerOptionsProp {
   id: string,
@@ -24,12 +23,12 @@ interface ICustomerProps {
 }
 
 interface ICustomerContextProps {
+  selectedCustomers: string[],
   customersOptionsList: ICustomerOptionsProp[],
-  selectedCustomers: string[]
-  AssociateCustomerWithAssistant: (assistantIdSelected: string) => void,
-  DisconnectCustomerAndAssistant: (assistantIdSelected: string) => void,
   CustomersIdCheckBoxChange: (customerId: string) => void,
   CreateCustomer: ({ name, code, network }: ICustomerProps) => void,
+  AssociateCustomerWithAssistant: (assistantIdSelected: string) => void,
+  DisconnectCustomerAndAssistant: (assistantIdSelected: string) => void,
 }
 
 interface ICustomerContextProviderProps {
@@ -44,18 +43,18 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
 
   const [customersOptionsList, setcustomersOptionsList] = useState<ICustomerOptionsProp[]>([])
 
-  const [selectedCustomers, setSelectedCustomers] = useState<string[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<string[]>([])
 
   function CustomersIdCheckBoxChange(customerId: string) {
     // Verifica se o cliente já está na lista de selecionados
-    const isChecked = selectedCustomers.includes(customerId);
+    const isChecked = selectedCustomers.includes(customerId)
 
     if (isChecked) {
       // Se já estiver selecionado, remove da lista
-      setSelectedCustomers(selectedCustomers.filter(id => id !== customerId));
+      setSelectedCustomers(selectedCustomers.filter(id => id !== customerId))
     } else {
       // Se não estiver selecionado, adiciona à lista
-      setSelectedCustomers([...selectedCustomers, customerId]);
+      setSelectedCustomers([...selectedCustomers, customerId])
     }
   }
 
@@ -69,22 +68,22 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
       RefreshAllRelations()
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message);
-      };
+        alert(err.response.data.message)
+      }
     }
   }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get('/customers/list');
-        setcustomersOptionsList(response.data);
+        const response = await api.get('/customers/list')
+        setcustomersOptionsList(response.data)
       } catch (error) {
-        console.error('Erro ao obter a lista de assistentes:', error);
+        console.error('Erro ao obter a lista de assistentes:', error)
       }
-    };
+    }
 
-    fetchData();
+    fetchData()
   }, [refresh, selectedCustomers])
 
   async function AssociateCustomerWithAssistant(assistantIdSelected: string) {
@@ -97,8 +96,8 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
         setSelectedCustomers([])
       } catch (err) {
         if (err instanceof AxiosError && err?.response?.data?.message) {
-          alert(err.response.data.message);
-        };
+          alert(err.response.data.message)
+        }
       }
     }
     RefreshAllRelations()
@@ -115,8 +114,8 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
         setSelectedCustomers([])
       } catch (err) {
         if (err instanceof AxiosError && err?.response?.data?.message) {
-          alert(err.response.data.message);
-        };
+          alert(err.response.data.message)
+        }
       }
     }
     RefreshAllRelations()

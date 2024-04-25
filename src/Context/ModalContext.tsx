@@ -1,12 +1,9 @@
 import {
+  useState,
   ReactNode,
-  createContext,
   useContext,
-  useEffect,
-  useReducer,
-  useState
+  createContext,
 } from 'react'
-
 
 type UserStatusManagementProps = 'customer' | 'assistant'
 
@@ -27,7 +24,6 @@ export function ModalContextProvider({ children }: IModalContextProviderProps) {
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [userStatus, setuserStatus] = useState<UserStatusManagementProps>('customer')
-
 
   function userStatusManagementChange(method: UserStatusManagementProps) {
     setuserStatus(method)

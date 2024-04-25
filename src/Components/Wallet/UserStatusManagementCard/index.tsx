@@ -1,26 +1,26 @@
-import Image from "next/image"
+import { useState } from 'react'
+import Image from 'next/image'
 
-import { useAssistant } from "@/Context/AssistantContext"
-import { useCustomer } from "@/Context/CustomerContext"
-import { useModal } from "@/Context/ModalContext"
+import { useAssistant } from '@/Context/AssistantContext'
+import { useCustomer } from '@/Context/CustomerContext'
+import { useModal } from '@/Context/ModalContext'
 
-import imgLogo from "@/assets/logo/logo.svg"
+import imgLogo from '@/assets/logo/logo.svg'
 
 import {
-  PiArrowCircleRight,
-  PiArrowCircleLeft,
   PiPlusCircle,
+  PiArrowCircleLeft,
+  PiArrowCircleRight,
   PiMagnifyingGlassThin,
-} from "react-icons/pi"
+} from 'react-icons/pi'
 
 import {
   UserStatusManagementCardClean,
-  UserStatusManagementCardContent,
+  UserStatusManagementCardTable,
   UserStatusManagementCardHeader,
+  UserStatusManagementCardContent,
   UserStatusManagementCardSearchContent,
-  UserStatusManagementCardTable
-} from "./styles"
-import { useState } from "react"
+} from './styles'
 
 interface IUserStatusManagementCardProps {
   title: string,
@@ -36,7 +36,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
 
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('')
 
   const {
     assistantNameSelected,
@@ -52,7 +52,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
 
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
-    userStatusManagementChange("customer")
+    userStatusManagementChange('customer')
   }
 
   function handleAssociateCustomerWithAssistant() {
@@ -69,13 +69,13 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
 
   const filteredCustomers = customersOptionsList.filter((customer) =>
     customer.code.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  )
 
   const filteredassistantsWithRelation = assistantsWithRelation.filter((customer) =>
     customer.code.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  )
 
-  const usersList = type == "customer" ? filteredCustomers : filteredassistantsWithRelation
+  const usersList = type == 'customer' ? filteredCustomers : filteredassistantsWithRelation
 
   const customerOptionsLength = customersOptionsList.length
   const assistantRelationLength = assistantsWithRelation.length
