@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { prisma } from '@/lib/prisma'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (customerExists) {
     return res.status(400).json({
-      message: 'Customer code already taken.'
+      message: 'O código usado no cadastro já está sendo usado. Use um outro código para esse cadastro.'
     })
   }
   
@@ -29,5 +29,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
   })
 
-  res.status(201).json(customer);
+  res.status(201).json(customer)
 }

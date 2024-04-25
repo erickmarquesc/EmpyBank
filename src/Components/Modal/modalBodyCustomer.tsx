@@ -1,13 +1,11 @@
-import { ConfirmFormCustomerData, confirmFormCustomerSchema } from "./modalSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
-import { useModal } from "@/Context/ModalContext"
+import { ConfirmFormCustomerData, confirmFormCustomerSchema } from './modalSchema'
+import { useCustomer } from '@/Context/CustomerContext'
+import { useModal } from '@/Context/ModalContext'
 
-import { ModalFooter, ModalForm } from "./styles"
-import { api } from "@/lib/axios"
-import { AxiosError } from "axios"
-import { useCustomer } from "@/Context/CustomerContext"
+import { ModalFooter, ModalForm } from './styles'
 
 export default function ModalBodyCustomer() {
 

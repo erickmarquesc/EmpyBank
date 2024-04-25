@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 /*  Schema ModalBodyAssistant */
 export const confirmFormAssistantSchema = z.object({

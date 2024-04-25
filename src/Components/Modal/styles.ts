@@ -12,6 +12,7 @@ export const ModalContainer = styled.div<IModalContainerProps>`
   justify-content: center;
   backdrop-filter: blur(4px);
   background-color: rgba(0, 0, 0, 0.2);
+  
   z-index: 9999;
   
   ${(props) => props.isOpen === true ? css`

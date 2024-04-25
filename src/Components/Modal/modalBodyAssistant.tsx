@@ -1,11 +1,11 @@
-import { ConfirmFormAssistantData, confirmFormAssistantSchema } from "./modalSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { ConfirmFormAssistantData, confirmFormAssistantSchema } from './modalSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
-import { useAssistant } from "@/Context/AssistantContext"
-import { useModal } from "@/Context/ModalContext"
+import { useAssistant } from '@/Context/AssistantContext'
+import { useModal } from '@/Context/ModalContext'
 
-import { ModalFooter, ModalForm } from "./styles"
+import { ModalFooter, ModalForm } from './styles'
 
 export default function ModalBodyAssistant() {
   const { modalSetIsOpen } = useModal()
