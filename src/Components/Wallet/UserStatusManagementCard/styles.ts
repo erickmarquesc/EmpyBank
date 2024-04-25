@@ -8,10 +8,23 @@ export const UserStatusManagementCardContent = styled.div`
   min-width: 570px;
   border-radius: 18px;
   flex-direction: column;
-  background-color: ${(props) => props.theme['white']};
+  background-color: ${(props) => props.theme['white']};  
+`
+export const UserStatusManagementCardSearchContent = styled.div`
+  position: relative;
 
   input{
     width: 100%;
+    border-radius: 12px;
+    padding: 8px 8px 8px 35px;
+    border: 1px solid ${(props) => props.theme['gray-light']};
+  };
+
+  .search-icon {
+    top: 50%;
+    left: 10px;
+    position: absolute;
+    transform: translateY(-50%);
   };
 `
 interface IUserStatusManagementCardHeaderProps{
@@ -21,6 +34,7 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   section{
     gap: 16px;
     display: flex;
@@ -101,6 +115,14 @@ export const UserStatusManagementCardTable = styled.table`
 
   th {
     color: ${(props) => props.theme['gray-dark']};
+
+    &:first-child{
+      height: 35px;
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      border-radius: 18px 0 0 18px;
+    };
   };
 
   tbody {
@@ -108,8 +130,13 @@ export const UserStatusManagementCardTable = styled.table`
       td {
         background-color: ${(props) => props.theme['gray']};
         color: ${(props) => props.theme['blue-dark']};
+        
         &.first-child {
-          width: 10%;
+          width: auto;
+          height: 35px;
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
           border-radius: 18px 0 0 18px;
 
           :hover{
@@ -123,17 +150,25 @@ export const UserStatusManagementCardTable = styled.table`
         };
 
         &.code-child {
-          width: 10%;
+          width: 15%;
         };
       };
     };
   };
 `
-export const UserStatusManagementCardClean = styled.table`
-  display: flex;
-  flex-direction: column;
-  margin-top: 48px;
+export const UserStatusManagementCardClean = styled.div`
   width: 100%;
+  display: flex;
+  margin-top: 48px;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
+
+  h1{
+    color: ${(props)=>props.theme['blue-dark']};
+  };
+
+  h3{
+    color: ${(props) => props.theme['gray-dark']};
+  }
 `
