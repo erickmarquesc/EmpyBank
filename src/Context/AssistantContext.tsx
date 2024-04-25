@@ -8,6 +8,7 @@ import {
   useReducer,
   useState
 } from 'react'
+import { boolean } from 'zod'
 
 interface IAssistantProps {
   name: string,
@@ -33,6 +34,8 @@ interface IAssistantContextProps {
   assistantsWithRelation: IAssistantsOptionsssProp[],
   getAssistantIdForOptionsList: (id: string) => void,
   creatAssistant: ({ email, name, phone }: IAssistantProps) => void,
+  RefreshAllRelations: ()=>void,
+  refresh: boolean,
 }
 
 interface IAssistantContextProviderProps {
@@ -49,10 +52,13 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
 
   const [assistantNameSelected, setAssistantNameSelected] = useState('')
 
-
   const [assistantsWithRelation, setassistantsWithRelation] = useState<IAssistantsOptionsssProp[]>([]) // lista de costumers relacionada com o assistent
 
   const [refresh, setRefresh] = useState(false)
+
+  function RefreshAllRelations() {
+    setRefresh(!refresh)
+  }
 
   function getAssistantIdForOptionsList(id: string) {
     setAssistantIdSelected(id)
@@ -103,6 +109,7 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
           }
         });
         setassistantsWithRelation(response.data);
+
       } catch (error) {
         console.error('Erro ao obter a lista de relações:', error);
       }
@@ -116,6 +123,8 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
       <AssistantContext.Provider
         value={{
           creatAssistant,
+          refresh,
+          RefreshAllRelations,
           assistantsWithRelation,
           assistantOptionsList,
           assistantIdSelected,
