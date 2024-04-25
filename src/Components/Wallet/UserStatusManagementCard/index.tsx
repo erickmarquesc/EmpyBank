@@ -20,6 +20,7 @@ import {
   UserStatusManagementCardSearchContent,
   UserStatusManagementCardTable
 } from "./styles"
+import { useState } from "react"
 
 interface IUserStatusManagementCardProps {
   title: string,
@@ -34,6 +35,8 @@ interface IUserStatusManagementCardProps {
 export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
 
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
+
+  const [searchTerm, setSearchTerm] = useState('');
 
   const {
     assistantNameSelected,
@@ -64,10 +67,19 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
     CustomersIdCheckBoxChange(customerId)
   }
 
-  const usersList = type == "customer" ? customersOptionsList : assistantsWithRelation
+  const filteredCustomers = customersOptionsList.filter((customer) =>
+    customer.code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredassistantsWithRelation = assistantsWithRelation.filter((customer) =>
+    customer.code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const usersList = type == "customer" ? filteredCustomers : filteredassistantsWithRelation
 
   const customerOptionsLength = customersOptionsList.length
   const assistantRelationLength = assistantsWithRelation.length
+
 
   return (
     <UserStatusManagementCardContent>
@@ -110,8 +122,10 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
       <UserStatusManagementCardSearchContent>
         <input
           type="text"
-          placeholder="Buscar"
+          placeholder="Buscar pelo código"
           className="search-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <PiMagnifyingGlassThin className="search-icon" />
       </UserStatusManagementCardSearchContent>
