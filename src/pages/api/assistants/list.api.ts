@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from '@/lib/prisma'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -9,5 +9,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   
   const assistantExists = await prisma.assistant.findMany()
 
-  res.status(201).json(assistantExists);
+  res.status(201).json(assistantExists)
 }

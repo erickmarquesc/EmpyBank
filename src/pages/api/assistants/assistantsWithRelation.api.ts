@@ -1,6 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import type { NextApiRequest, NextApiResponse } from "next";
-
+import { prisma } from '@/lib/prisma'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 interface ICustomerProp {
   id: string,
@@ -15,13 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end()
   }
 
-  const { assistantIdSelected } = req.query;
-
-  /*
-
-  if (!assistantIdSelected) {
-    return res.status(400).json({ message: 'Year or month not specified.' });
-  }; */
+  const { assistantIdSelected } = req.query
 
   const assistantRelations: Array<ICustomerProp> = await prisma.$queryRaw`
     SELECT *
@@ -31,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       FROM customer_assistant_relations
       WHERE assistantId = ${assistantIdSelected}
     );
-  `;
+  `
 
   res.status(201).json(assistantRelations);
 }

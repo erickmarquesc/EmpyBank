@@ -1,6 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import type { NextApiRequest, NextApiResponse } from "next";
-
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { prisma } from '@/lib/prisma'
 
 interface ICustomerProp {
   id: string,
@@ -22,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         SELECT customerId
         FROM customer_assistant_relations
     );
-`;
+  `
 
   res.status(201).json(customersWithoutRelation);
 }

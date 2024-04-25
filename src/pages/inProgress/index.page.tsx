@@ -1,8 +1,11 @@
-import Image from 'next/image'
-import imgLogo from '@/assets/logo/logo.svg'
-import { InProgressContainer } from './styles'
-import Link from 'next/link'
 import { NextSeo } from 'next-seo'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import imgLogo from '@/assets/logo/logo.svg'
+
+import { InProgressContainer } from './styles'
+
 export default function InProgress() {
   return (
     <>
