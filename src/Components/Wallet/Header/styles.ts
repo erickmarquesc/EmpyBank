@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export const WalletHeaderContent = styled.div`
   gap: 32px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
    
   h1{
     font-size: 2.8rem;
@@ -29,8 +29,17 @@ export const WalletHeaderContent = styled.div`
       select{
         padding: 12px;
         min-width: 388px;
+        font-size: 1.6rem;
         border-radius: 12px;
+        border: 1px solid ${(props) => props.theme['gray-light']};
       };
+      
+      
+      option {
+        padding: 12px;
+        background-color: white;
+        color: ${(props) => props.theme['blue-dark']};
+      }
 
       button{
         border: none;
