@@ -92,15 +92,15 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
   
       ${(props) => props.type === 'customer'
         ? css`
-          &.vincular{
+          &.associate{
             background-color: ${(props) => props.theme['purple']};
           };
-          &.assistant { 
+          &.assistant{ 
             display: none;
           }`
         : css`
           background-color: ${(props) => props.theme['orange']};
-          &.customer {
+          &.customer{
             display: none;
           }`
       };
