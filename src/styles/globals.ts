@@ -41,7 +41,7 @@ export const GlobalStyle = createGlobalStyle`
 
   /* Alça da barra de rolagem */
   ::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme['base-blue']}; /* Cor da alça */
+    background: ${(props) => props.theme['blue']}; /* Cor da alça */
   }
 
   /* Alça da barra de rolagem ao passar o mouse */

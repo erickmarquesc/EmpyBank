@@ -5,7 +5,7 @@ export const UserStatusManagementCardContent = styled.div`
   gap: 16px;
   display: flex;
   padding: 24px;
-  min-width: 470px;
+  min-width: 570px;
   border-radius: 18px;
   flex-direction: column;
   background-color: ${(props) => props.theme['white']};
@@ -21,7 +21,6 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   section{
     gap: 16px;
     display: flex;
@@ -129,4 +128,12 @@ export const UserStatusManagementCardTable = styled.table`
       };
     };
   };
+`
+export const UserStatusManagementCardClean = styled.table`
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 `

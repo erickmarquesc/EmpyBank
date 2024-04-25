@@ -4,6 +4,7 @@ export const WalletHeaderContent = styled.div`
   gap: 32px;
   display: flex;
   flex-direction: column;
+  width: 100%;
    
   h1{
     font-size: 2.8rem;
