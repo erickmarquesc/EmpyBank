@@ -62,7 +62,7 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
     try {
       await api.post('/customers', {
         name,
-        code,
+        code: code.toUpperCase(),
         network,
       })
       RefreshAllRelations()
