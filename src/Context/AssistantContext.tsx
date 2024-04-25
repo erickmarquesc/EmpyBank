@@ -1,14 +1,12 @@
 import { api } from '@/lib/axios'
 import { AxiosError } from 'axios'
 import {
+  useState,
   ReactNode,
-  createContext,
-  useContext,
   useEffect,
-  useReducer,
-  useState
+  useContext,
+  createContext,
 } from 'react'
-import { boolean } from 'zod'
 
 interface IAssistantProps {
   name: string,
@@ -20,7 +18,12 @@ interface IAssistantsOptionsProp {
   id: string
 }
 
-interface IAssistantsOptionsssProp {
+/**
+ * Essa interface representa a estrutura das relações de Assistants
+ * Todo Assistant tem relação com um costumer
+ * Assim assistantsWithRelation receberá um costumer
+ */
+interface IAssistantsWithRelationProp { //Possui a estrutura dos customers
   id: string,
   code: string,
   name: string,
@@ -28,14 +31,14 @@ interface IAssistantsOptionsssProp {
 }
 
 interface IAssistantContextProps {
-  assistantOptionsList: IAssistantsOptionsProp[],
+  refresh: boolean,
   assistantIdSelected: string,
   assistantNameSelected: string,
-  assistantsWithRelation: IAssistantsOptionsssProp[],
-  getAssistantIdForOptionsList: (id: string) => void,
-  creatAssistant: ({ email, name, phone }: IAssistantProps) => void,
-  RefreshAllRelations: ()=>void,
-  refresh: boolean,
+  assistantOptionsList: IAssistantsOptionsProp[],
+  assistantsWithRelation: IAssistantsWithRelationProp[],
+  RefreshAllRelations: () => void,
+  GetAssistantIdForOptionsList: (id: string) => void,
+  CreatAssistant: ({ email, name, phone }: IAssistantProps) => void,
 }
 
 interface IAssistantContextProviderProps {
@@ -52,7 +55,7 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
 
   const [assistantNameSelected, setAssistantNameSelected] = useState('')
 
-  const [assistantsWithRelation, setassistantsWithRelation] = useState<IAssistantsOptionsssProp[]>([]) // lista de costumers relacionada com o assistent
+  const [assistantsWithRelation, setassistantsWithRelation] = useState<IAssistantsWithRelationProp[]>([]) // lista de costumers relacionada com o assistent
 
   const [refresh, setRefresh] = useState(false)
 
@@ -60,11 +63,11 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
     setRefresh(!refresh)
   }
 
-  function getAssistantIdForOptionsList(id: string) {
+  function GetAssistantIdForOptionsList(id: string) {
     setAssistantIdSelected(id)
   }
 
-  async function creatAssistant({ email, name, phone }: IAssistantProps) {
+  async function CreatAssistant({ email, name, phone }: IAssistantProps) {
     try {
       await api.post('/assistants', {
         name,
@@ -88,7 +91,6 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
         console.error('Erro ao obter a lista de assistentes:', error);
       }
     };
-
     fetchData();
   }, [assistantIdSelected, refresh])
 
@@ -109,12 +111,10 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
           }
         });
         setassistantsWithRelation(response.data);
-
       } catch (error) {
         console.error('Erro ao obter a lista de relações:', error);
       }
     };
-
     fetchData();
   }, [assistantIdSelected, refresh])
 
@@ -122,14 +122,14 @@ export function AssistantContextProvider({ children }: IAssistantContextProvider
     <>
       <AssistantContext.Provider
         value={{
-          creatAssistant,
           refresh,
-          RefreshAllRelations,
-          assistantsWithRelation,
-          assistantOptionsList,
           assistantIdSelected,
+          assistantOptionsList,
           assistantNameSelected,
-          getAssistantIdForOptionsList,
+          assistantsWithRelation,
+          CreatAssistant,
+          RefreshAllRelations,
+          GetAssistantIdForOptionsList,
         }}
       >
         {children}

@@ -5,7 +5,7 @@ import { useAssistant } from "@/Context/AssistantContext"
 
 export default function WalletHeader() {
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
-  const { assistantOptionsList, getAssistantIdForOptionsList } = useAssistant()
+  const { assistantOptionsList, GetAssistantIdForOptionsList } = useAssistant()
 
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
@@ -13,7 +13,7 @@ export default function WalletHeader() {
   }
 
   const handleoptions = (id: string) => {
-    getAssistantIdForOptionsList(id)
+    GetAssistantIdForOptionsList(id)
   }
 
   return (
@@ -26,7 +26,7 @@ export default function WalletHeader() {
         <div>
           <select
             onChange={(e) => handleoptions(e.target.value)}
-            defaultValue="" 
+            defaultValue=""
           >
             <option value="" disabled>Selecione uma opção</option>
             {assistantOptionsList.map((option) => (

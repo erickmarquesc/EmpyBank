@@ -9,7 +9,7 @@ import { ModalFooter, ModalForm } from "./styles"
 
 export default function ModalBodyAssistant() {
   const { modalSetIsOpen } = useModal()
-  const { creatAssistant } = useAssistant()
+  const { CreatAssistant } = useAssistant()
 
   const {
     register,
@@ -20,7 +20,7 @@ export default function ModalBodyAssistant() {
   })
 
   async function handleCreateAssistant(data: ConfirmFormAssistantData) {
-    creatAssistant(data)
+    CreatAssistant(data)
   }
 
   const handleModalSetIsOpen = () => {
