@@ -24,8 +24,11 @@ export default function WalletHeader() {
         <label>Selecione o Assistente Comercial</label>
 
         <div>
-          <select onChange={(e) => handleoptions(e.target.value)}>
-            <option value="" disabled selected>Selecione uma opção</option>
+          <select
+            onChange={(e) => handleoptions(e.target.value)}
+            defaultValue="" 
+          >
+            <option value="" disabled>Selecione uma opção</option>
             {assistantOptionsList.map((option) => (
               <option
                 value={option.id}

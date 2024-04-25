@@ -31,7 +31,7 @@ export default function ModalBodyCustomer() {
   }
 
   return (
-    <ModalForm as='Form' onSubmit={handleSubmit(handleConfirmCustomer)}>
+    <ModalForm  onSubmit={handleSubmit(handleConfirmCustomer)}>
       <h1>Cadastro de Cliente</h1>
 
       <div>

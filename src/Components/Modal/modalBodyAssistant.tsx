@@ -28,7 +28,7 @@ export default function ModalBodyAssistant() {
   }
 
   return (
-    <ModalForm as='Form' onSubmit={handleSubmit(handleCreateAssistant)}>
+    <ModalForm onSubmit={handleSubmit(handleCreateAssistant)}>
       <h1>Cadastro de Assistente Comercial</h1>
 
       <div>
