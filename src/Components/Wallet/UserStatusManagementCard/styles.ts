@@ -84,6 +84,11 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
       justify-content: center;
       color: ${(props) => props.theme['white']};
       background-color: ${(props) => props.theme['blue']};
+
+      &:disabled{
+        cursor: not-allowed;
+        filter: brightness(0.8);
+      }
   
       ${(props) => props.type === 'customer'
         ? css`

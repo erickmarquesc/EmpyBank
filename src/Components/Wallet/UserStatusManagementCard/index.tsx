@@ -1,7 +1,11 @@
+import Image from "next/image"
+
 import { useAssistant } from "@/Context/AssistantContext"
+import { useCustomer } from "@/Context/CustomerContext"
 import { useModal } from "@/Context/ModalContext"
 
 import imgLogo from "@/assets/logo/logo.svg"
+
 import {
   PiArrowCircleRight,
   PiArrowCircleLeft,
@@ -16,8 +20,6 @@ import {
   UserStatusManagementCardSearchContent,
   UserStatusManagementCardTable
 } from "./styles"
-import { useCustomer } from "@/Context/CustomerContext"
-import Image from "next/image"
 
 interface IUserStatusManagementCardProps {
   title: string,
@@ -64,6 +66,9 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
 
   const usersList = type == "customer" ? customersOptionsList : assistantsWithRelation
 
+  const customerOptionsLength = customersOptionsList.length
+  const assistantRelationLength = assistantsWithRelation.length
+
   return (
     <UserStatusManagementCardContent>
       <UserStatusManagementCardHeader type={type}>
@@ -74,8 +79,8 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
           <h2>
             {assistantNameSelected}
           </h2>
-          <label className="customer">{customersOptionsList.length}</label>
-          <label className="assistant">{assistantsWithRelation.length}</label>
+          <label className="customer">{customerOptionsLength}</label>
+          <label className="assistant">{assistantRelationLength}</label>
         </section>
 
         <div>
@@ -87,12 +92,14 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
           </button>
           <button className="customer vincular"
             onClick={() => { handleVincular() }}
+            disabled={!assistantIdSelected || customerOptionsLength === 0}
           >
             Vincular
             <PiArrowCircleRight size={18} />
           </button>
           <button className="assistant"
             onClick={() => { handleDesvincular() }}
+            disabled={!assistantIdSelected || assistantRelationLength === 0}
           >
             <PiArrowCircleLeft size={18} />
             Desvincular
@@ -113,7 +120,8 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
         <thead>
           <tr>
             <th>
-              <input type="checkbox" className="checkedAll"/>
+              <input type="checkbox" className="checkedAll" disabled />
+              {/* Infrentei problemas com o comportamento do checkbox */}
             </th>
             <th>Código</th>
             <th>Parceiro</th>
