@@ -79,7 +79,8 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
 
   const customerOptionsLength = customersOptionsList.length
   const assistantRelationLength = assistantsWithRelation.length
-
+  
+  const assistantName = assistantNameSelected ? assistantNameSelected : 'Assistente não selecionado'
 
   return (
     <UserStatusManagementCardContent>
@@ -89,7 +90,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             {title}
           </h1>
           <h2>
-            {assistantNameSelected}
+            {assistantName}
           </h2>
           <label className="customer">{customerOptionsLength}</label>
           <label className="assistant">{assistantRelationLength}</label>
