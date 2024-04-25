@@ -57,7 +57,6 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
       // Se não estiver selecionado, adiciona à lista
       setSelectedCustomers([...selectedCustomers, customerId]);
     }
-    console.log(selectedCustomers)
   }
 
   async function createCustomer({ name, code, network }: ICustomerProps) { //registro do customer
@@ -107,7 +106,7 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
 
   async function desvincular(assistantIdSelected: string) {
     for (const customerId of selectedCustomers) {
-      console.log('desvincular')
+      
       try {
         await api.put('/customerAssistantRelation/deletar', {
           assistantId: assistantIdSelected,

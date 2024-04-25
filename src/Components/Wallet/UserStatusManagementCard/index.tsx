@@ -63,9 +63,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
   }
 
   const usersList = type == "customer" ? customersOptionsList : assistantsWithRelation
-  console.log('meu cu')
-  console.log(usersList)
-
+  
   return (
     <UserStatusManagementCardContent>
       <UserStatusManagementCardHeader type={type}>
