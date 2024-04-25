@@ -39,21 +39,22 @@ interface IAssistantsOptionsProp {
 export default function UserStatusManagementCard({ title, type }: IUserStatusManagementCardProps) {
 
   const { modalSetIsOpen, userStatusManagementChange } = useModal()
-  
+
   const {
     assistantNameSelected,
     assistantsWithRelation,
     assistantIdSelected } = useAssistant()
-  
+
   const {
     desvincular,
     vincular,
+    selectedCustomers,
     CustomersIdCheckBoxChange,
     customersOptionsList } = useCustomer()
 
   const handleModalSetIsOpen = () => {
     modalSetIsOpen()
-    userStatusManagementChange("customer") //Abre o corpo de cliente do modal
+    userStatusManagementChange("customer")
   }
 
   function handleVincular() {
@@ -64,7 +65,10 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
     desvincular(assistantIdSelected)
   }
 
-  //precisa ser atualizado com as modificações
+  function handleCustomersIdCheckBoxChange(customerId: string) {
+    CustomersIdCheckBoxChange(customerId)
+  }
+
   const customersList = type == "customer" ? customersOptionsList : assistantsWithRelation
 
   return (
@@ -122,7 +126,8 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
                   <input
                     type="checkbox"
                     value={customer.id}
-                    onChange={() => CustomersIdCheckBoxChange(customer.id)}
+                    onChange={() => handleCustomersIdCheckBoxChange(customer.id)}
+                    checked={selectedCustomers.includes(customer.id)}
                   />
                 </td>
                 <td className="code-child">
