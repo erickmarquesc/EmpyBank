@@ -1,8 +1,9 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import logoImg from '@/assets/logo/logo.svg'
-import Link from 'next/link'
 import userImg from '@/assets/userimg.svg'
+
 import {
   PiChartPie,
   PiWallet,
@@ -13,19 +14,18 @@ import {
   PiUserCircle,
   PiSun
 } from "react-icons/pi";
+import { SidebarContainer, SidebarContentUserSection } from './styles';
 
 export default function Sidebar() {
   return (
-    <div className='sidebar'>
+    <SidebarContainer>
       <div>
         <Image
           alt='logo'
           src={logoImg}
         />
         <menu>
-          <Link href='/inProgress'
-            aria-selected
-          >
+          <Link href='/inProgress'>
             <PiChartPie
               size={21}
               className='icon'
@@ -63,14 +63,16 @@ export default function Sidebar() {
           </Link>
         </menu>
       </div>
-      <div className='content'>
+
+      <SidebarContentUserSection>
         <PiUserCircle size={21} />
         <PiSun size={21} />
         <Image
           alt='user Image'
           src={userImg}
         />
-      </div>
-    </div>
+      </SidebarContentUserSection>
+
+    </SidebarContainer>
   )
 }

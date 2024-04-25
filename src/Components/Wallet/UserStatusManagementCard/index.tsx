@@ -3,9 +3,7 @@ import { useEffect, useState } from "react"
 import { useAssistant } from "@/Context/AssistantContext"
 import { useModal } from "@/Context/ModalContext"
 
-import { AxiosError } from "axios"
-import { api } from "@/lib/axios"
-
+import imgLogo from "@/assets/logo/logo.svg"
 import {
   PiArrowCircleRight,
   PiArrowCircleLeft,
@@ -13,22 +11,17 @@ import {
 } from "react-icons/pi"
 
 import {
+  UserStatusManagementCardClean,
   UserStatusManagementCardContent,
   UserStatusManagementCardHeader,
   UserStatusManagementCardTable
 } from "./styles"
 import { useCustomer } from "@/Context/CustomerContext"
+import Image from "next/image"
 
 interface IUserStatusManagementCardProps {
   title: string,
   type: 'customer' | 'assistant',
-}
-
-interface IAssistantsOptionsProp {
-  id: string,
-  code: string,
-  name: string,
-  network: string,
 }
 
 /* 
@@ -69,7 +62,9 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
     CustomersIdCheckBoxChange(customerId)
   }
 
-  const customersList = type == "customer" ? customersOptionsList : assistantsWithRelation
+  const usersList = type == "customer" ? customersOptionsList : assistantsWithRelation
+  console.log('meu cu')
+  console.log(usersList)
 
   return (
     <UserStatusManagementCardContent>
@@ -119,31 +114,46 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
           </tr>
         </thead>
         <tbody>
-          {customersList.map((customer) => {
-            return (
-              <tr key={customer.id}>
-                <td className="first-child">
-                  <input
-                    type="checkbox"
-                    value={customer.id}
-                    onChange={() => handleCustomersIdCheckBoxChange(customer.id)}
-                    checked={selectedCustomers.includes(customer.id)}
-                  />
-                </td>
-                <td className="code-child">
-                  {customer.code}
-                </td>
-                <td>
-                  {customer.name}
-                </td>
-                <td className="last-child">
-                  {customer.network}
-                </td>
-              </tr>
-            )
-          })}
+          {
+            usersList.length > 0 &&
+            usersList.map((customer) => {
+              return (
+                <tr key={customer.id}>
+                  <td className="first-child">
+                    <input
+                      type="checkbox"
+                      value={customer.id}
+                      onChange={() => handleCustomersIdCheckBoxChange(customer.id)}
+                      checked={selectedCustomers.includes(customer.id)}
+                    />
+                  </td>
+                  <td className="code-child">
+                    {customer.code}
+                  </td>
+                  <td>
+                    {customer.name}
+                  </td>
+                  <td className="last-child">
+                    {customer.network}
+                  </td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </UserStatusManagementCardTable>
+
+      {
+        usersList.length <= 0 &&
+        <UserStatusManagementCardClean>
+            <Image
+              alt="imagem da logo empybank"
+              src={imgLogo}
+            />
+            <h1>Não há registros</h1>
+            <h3>Crie um novo registro</h3>
+        </UserStatusManagementCardClean>
+      }
     </UserStatusManagementCardContent>
   )
 }
