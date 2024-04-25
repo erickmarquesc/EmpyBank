@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components"
+import styled, { css } from 'styled-components'
 
-interface IModalContainerProps{
+interface IModalContainerProps {
   isOpen: boolean,
 }
 
