@@ -12,7 +12,7 @@ import { useCustomer } from "@/Context/CustomerContext"
 export default function ModalBodyCustomer() {
 
   const { modalSetIsOpen } = useModal()
-  const { createCustomer } = useCustomer()
+  const { CreateCustomer } = useCustomer()
 
   const {
     register,
@@ -23,7 +23,7 @@ export default function ModalBodyCustomer() {
   })
 
   function handleConfirmCustomer(data: ConfirmFormCustomerData) {
-    createCustomer(data)
+    CreateCustomer(data)
   }
 
   const handleModalSetIsOpen = () => {
@@ -31,7 +31,7 @@ export default function ModalBodyCustomer() {
   }
 
   return (
-    <ModalForm  onSubmit={handleSubmit(handleConfirmCustomer)}>
+    <ModalForm onSubmit={handleSubmit(handleConfirmCustomer)}>
       <h1>Cadastro de Cliente</h1>
 
       <div>

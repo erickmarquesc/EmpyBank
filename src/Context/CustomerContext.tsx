@@ -26,10 +26,10 @@ interface ICustomerProps {
 interface ICustomerContextProps {
   customersOptionsList: ICustomerOptionsProp[],
   selectedCustomers: string[]
-  vincular: (assistantIdSelected: string) => void,
-  desvincular: (assistantIdSelected: string) => void,
+  AssociateCustomerWithAssistant: (assistantIdSelected: string) => void,
+  DisconnectCustomerAndAssistant: (assistantIdSelected: string) => void,
   CustomersIdCheckBoxChange: (customerId: string) => void,
-  createCustomer: ({ name, code, network }: ICustomerProps) => void,
+  CreateCustomer: ({ name, code, network }: ICustomerProps) => void,
 }
 
 interface ICustomerContextProviderProps {
@@ -59,7 +59,7 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
     }
   }
 
-  async function createCustomer({ name, code, network }: ICustomerProps) { //registro do customer
+  async function CreateCustomer({ name, code, network }: ICustomerProps) { //registro do customer
     try {
       await api.post('/customers', {
         name,
@@ -87,7 +87,7 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
     fetchData();
   }, [refresh, selectedCustomers])
 
-  async function vincular(assistantIdSelected: string) {
+  async function AssociateCustomerWithAssistant(assistantIdSelected: string) {
     for (const customerId of selectedCustomers) {
       try {
         await api.post('/customerAssistantRelation', {
@@ -104,9 +104,9 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
     RefreshAllRelations()
   }
 
-  async function desvincular(assistantIdSelected: string) {
+  async function DisconnectCustomerAndAssistant(assistantIdSelected: string) {
     for (const customerId of selectedCustomers) {
-      
+
       try {
         await api.put('/customerAssistantRelation/deletar', {
           assistantId: assistantIdSelected,
@@ -127,11 +127,11 @@ export function CustomerContextProvider({ children }: ICustomerContextProviderPr
       <CustomerContext.Provider
         value={{
           customersOptionsList,
-          desvincular,
-          vincular,
+          DisconnectCustomerAndAssistant,
+          AssociateCustomerWithAssistant,
           selectedCustomers,
           CustomersIdCheckBoxChange,
-          createCustomer,
+          CreateCustomer,
         }}
       >
         {children}

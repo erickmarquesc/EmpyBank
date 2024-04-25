@@ -44,8 +44,8 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
     assistantIdSelected } = useAssistant()
 
   const {
-    desvincular,
-    vincular,
+    DisconnectCustomerAndAssistant,
+    AssociateCustomerWithAssistant,
     selectedCustomers,
     CustomersIdCheckBoxChange,
     customersOptionsList } = useCustomer()
@@ -55,12 +55,12 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
     userStatusManagementChange("customer")
   }
 
-  function handleVincular() {
-    vincular(assistantIdSelected)
+  function handleAssociateCustomerWithAssistant() {
+    AssociateCustomerWithAssistant(assistantIdSelected)
   }
 
-  function handleDesvincular() {
-    desvincular(assistantIdSelected)
+  function handleDisconnectCustomerAndAssistant() {
+    DisconnectCustomerAndAssistant(assistantIdSelected)
   }
 
   function handleCustomersIdCheckBoxChange(customerId: string) {
@@ -102,15 +102,15 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
             <PiPlusCircle size={18} />
             Adicionar cliente
           </button>
-          <button className="customer vincular"
-            onClick={() => { handleVincular() }}
+          <button className="customer associate"
+            onClick={() => { handleAssociateCustomerWithAssistant() }}
             disabled={!assistantIdSelected || customerOptionsLength === 0}
           >
             Vincular
             <PiArrowCircleRight size={18} />
           </button>
           <button className="assistant"
-            onClick={() => { handleDesvincular() }}
+            onClick={() => { handleDisconnectCustomerAndAssistant() }}
             disabled={!assistantIdSelected || assistantRelationLength === 0}
           >
             <PiArrowCircleLeft size={18} />
@@ -135,7 +135,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
           <tr>
             <th>
               <input type="checkbox" className="checkedAll" disabled />
-              {/* Infrentei problemas com o comportamento do checkbox */}
+              {/* Enfrentei problemas com o comportamento do checkbox */}
             </th>
             <th>Código</th>
             <th>Parceiro</th>
