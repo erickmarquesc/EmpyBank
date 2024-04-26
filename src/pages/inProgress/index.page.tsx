@@ -24,7 +24,7 @@ export default function InProgress() {
         />
         <h1>&#x1F6A7; Página em construção &#x1F6A7;</h1>
         <h2>Estamos trabalhando nessa página.</h2>
-        <h3>Enguanto isso de uma olhada na&nbsp;
+        <h3>Enquanto isso de uma olhada na&nbsp;
           <Link href='/'>
             carteira de clientes
           </Link>
