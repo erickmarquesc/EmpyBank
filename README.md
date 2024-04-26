@@ -3,7 +3,7 @@
 Erick Marques Cabral
 </p>
 <p align="center">
-Esse projeto é exclusivo e foi promovido pela Empy para o processo seletivo 2024. <br/>
+Este projeto é exclusivo e foi promovido pela Empy para o processo seletivo de 2024. <br/>
 <a href="https://empbank.com.br/">Empbank🔗</a>.
 </p> <br/>
 
@@ -18,9 +18,9 @@ Esse projeto é exclusivo e foi promovido pela Empy para o processo seletivo 202
 </p>
 
 ## 💻 Descrição
-Nesse projeto, desenvolvi uma aplicação para gerenciar a carteira de clientes da Empy Bank,
+Neste projeto, desenvolvi uma aplicação para gerenciar a carteira de clientes do Empy Bank,
 permitindo o cadastro de clientes e assistentes comerciais, e a associação entre eles.
-O principal reguisito é implementar as operações CRUD (Criar, Ler, Atualizar, Deletar) para ambas as entidades.
+O principal requisito é implementar as operações CRUD (Criar, Ler, Atualizar, Deletar) para ambas as entidades.
  
 Funcionalidades:
 
@@ -40,7 +40,7 @@ Conceitos abordados:
 - Listas e chaves no ReactJS.
 
 ## 🚀 Tecnologias
-Esse projeto foi desenvolvido com as seguintes tecnologias:
+Este projeto foi desenvolvido com as seguintes tecnologias:
 
 - Next.JS
 - ReactJS
@@ -52,18 +52,18 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Figma
 - Git e Github
 
-## 👽 Comecando
+## 👽 Começando
 
-Primeiro, baixe o progeto usando:
+Primeiro, baixe o projeto usando:
 
 ```bash
 git clone https://github.com/erickmarquesc/EmpyBank.git
 ```
-Logo depois, execute a instalação de todas as dependendias: Exemplo
+Em seguida, execute a instalação de todas as dependências. Por exemplo:
 ```bash
 npm i
 ```
-Assim que todas as dependencias estiverem instaladas, execute o servidor de desenvolvimento:
+Assim que todas as dependências estiverem instaladas, execute o servidor de desenvolvimento:
 ```bash
 npm run dev
 # or
