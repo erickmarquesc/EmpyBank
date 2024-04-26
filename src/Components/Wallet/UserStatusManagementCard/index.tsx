@@ -158,7 +158,7 @@ export default function UserStatusManagementCard({ title, type }: IUserStatusMan
                 <td className="code-child">
                   {customer.code}
                 </td>
-                <td>
+                <td className="name-child">
                   {customer.name}
                 </td>
                 <td className="last-child">

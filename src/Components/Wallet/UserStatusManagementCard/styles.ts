@@ -65,8 +65,11 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
     };
 
     label{
+      padding: 0 12px;
       font-size: 1.4rem;
+      border-radius: 18px;
       color: ${(props) => props.theme['blue']};
+      border: 1px solid ${(props) => props.theme['gray-light']};
     };
   };
 
@@ -89,7 +92,7 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
       &:disabled{
         cursor: not-allowed;
         filter: brightness(0.8);
-      }
+      };
   
       ${(props) => props.type === 'customer'
         ? css`
@@ -110,53 +113,51 @@ export const UserStatusManagementCardHeader = styled.div<IUserStatusManagementCa
 `
 export const UserStatusManagementCardTable = styled.table`
   width: 100%;
-  border-spacing: 0 12px;
+
   border-collapse: separate;
+  border-spacing: 0 12px;
 
-  th, td {
-    padding: 8px;
-    text-align: left; 
-    font-size: 1.4rem;
-  };
+  thead{
+    tr{
+      th{
+        padding: 12px 0;
+        text-align: left;
+        font-size: 1.4rem;
+        color: ${(props) => props.theme['gray-dark']};
 
-  th {
-    color: ${(props) => props.theme['gray-dark']};
-
-    &:first-child{
-      height: 35px;
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      border-radius: 18px 0 0 18px;
+        &:first-child{
+          text-align: center;
+          padding-left: 12px;
+        };
+      };
     };
   };
-
-  tbody {
-    tr {
-      td {
-        background-color: ${(props) => props.theme['gray']};
+  
+  tbody{
+    tr{
+      td{
+        padding: 12px 0;
+        margin-bottom: 12px;
         color: ${(props) => props.theme['blue-dark']};
+        background-color: ${(props) => props.theme['gray']};
         
-        &.first-child {
-          width: auto;
-          height: 35px;
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
+        &:first-child{
+          text-align: center;
+          padding-left: 12px;
           border-radius: 18px 0 0 18px;
-
-          :hover{
-            cursor: pointer;
-          };
         };
-
-        &.last-child {
-          width: 15%;
+        
+        &:last-child{
+          width: 100px;
           border-radius: 0 18px 18px 0;
         };
-
-        &.code-child {
-          width: 15%;
+        
+        &.code-child{
+          width: 70px;
+        };
+        
+        &.name-child{
+          width: 350px;
         };
       };
     };
